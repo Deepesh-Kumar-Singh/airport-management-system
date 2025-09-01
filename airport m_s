@@ -1,0 +1,77 @@
+import mysql.connector mydb=mysql.connector.connect( 
+     host='localhost',      password='12345', 
+     user='root',      database ='airport_ms') cursor=mydb.cursor() 
+print('''                                          !===================================! 
+                                          !    WELCOME TO MAGEE AIRPORT       ! 
+                                          !===================================!''')       for i in range (2): 
+    print("press(1) for sign in")     print("press (2) for log in")     print("press (3) for sign out")     a=int(input("enter your choice")) 
+    if a==1:                                                                                                 #choice for sign in 
+ 
+        print('''                                      +===================================+ 
+                                              REGISTER YOURSELF 
+                                     +===================================+''')         u=input("enter your username")         p=input("enter your password")         cursor.execute("insert into user values('"+u+"','"+p+"')")         mydb.commit()         print("log in done") 
+    if a==2:                                                                                                       #choice for log in 
+        c=input("enter your username")         d=input("enter your password")         cursor.execute("select password from user") 
+        c=0 
+        pas = cursor.fetchall() 
+        for i in pas:             a=list(i)             if a[0]==str(d):                 while True: 
+                    c=c+1 
+                    
+                    print('''                                                 +==============================+ 
+                                                            CHOOSE AN OPTION 
+                                                    +===============================+''')                     print("1.adminstration")                     print("2.booking")                     print("3.EXIT") 
+                    ch=int(input("Enter your choice")) 
+                    if ch==1:                                                                                #choice from  adminstration 
+                        print("1.employee details")                         print("2.store details")                         cha=int(input("Enter your choice")) 
+                        if cha==1:                                                                     #choice from employee details                             print("1. SHOW DETAILS")                             print("2. ADD NEW MEMBER")                             print("3. DELETE EXISTING ONE")                             chs=int(input("Enter your choice")) 
+                            if chs==1:                                                                         #choice from show details 
+                                cursor.execute( "select * from employee")                                 Q=cursor.fetchall() 
+                                for i in Q:
+a=list(i) 
+                                    
+                                    print("ID, AGE,  NAME,   POSITION,        PAYMENT") 
+                                    print( a)                             if chs==2:                                                                             #choice for adding                                 i=input("enter id")                                 a=input ("enter age")                                 n=input ("enter name")                                 p=input ("enter position")                                 py=input ("enter payment")                                 cursor.execute("insert into employee    
+                                                                             values('"+i+"','"+a+"','"+n+"','"+p+"','"+py+"')")                                 print("data has been inserted")                                 mydb.commit() 
+                            if chs==3:                                                                           #choice for deleting 
+                                a=input("enter id to be deleted")                                 cursor.execute("delete from employee where id='"+a+"'") 
+                                mydb.commit()                                 print("record(s) deleted") 
+ 
+                        if cha==2:                                                                             #choice for store details 
+                            print("1. SHOW DETAILS")                             print("2. ADD NEW MEMBER")                             print("3. DELETE EXISTING ONE")                             chd=int(input("Enter your choice")) 
+                            if chd==1:                                                             #choice for showing store details                                 cursor.execute("select * from stores")                                 W=cursor.fetchall()                                 for i in W:
+b=list(i) 
+                                    print("NAME,    STORE NAME,      PRODUCT TYPE") 
+                                    print(b) 
+                            if chd==2:                                                            #choice for adding new member                                 n=input("Enter name")                                 s=input("Enter store name")                                 p=input("Enter product type")                                 cursor.execute("insert into stores values ('"+n+"','"+s+"','"+p+"')")                                 print("DATA HAS BEEN INSERTED") 
+                                mydb.commit()                             if chd==3: 
+                                a=input("Enter store name to be deleted")                                 cursor.execute("delete from stores where store_name='"+a+"'") 
+                                mydb.commit() 
+                                print("RECORD HAS BEEN DELETED") 
+ 
+                    if ch==2: 
+                        print("1. BOOKING AGENT")                         print("2. TICKET DETAILS")                         chb=int(input("Enter your choice")) 
+                        if chb==1: 
+                            print("1. SHOW AGENT DETAILS")                             print("2. BOOK FLIGHT")                             chn= int(input("Enter your choice")) 
+                            if chn==1:                                                            #choice for showing agent details 
+                                cursor.execute("select * from booking_agent")                                 E=cursor.fetchall() 
+                                for i in E:                                     b=list(i) print("ID,    COMPANY,      AGENT NAME") 
+                                    print(b) 
+                            if chn==2:                                                           #choice for adding new member                                 n=input("Enter name")                                 s=input("Enter seat class(N/B)")                                 f=input("Enter flight company")                                 d=input("Enter your destination") 
+                                if s=="N": 
+                                   cursor.execute("insert into ticket  
+values('5000','AB500','"+s+"','"+f+"','"+n+"','"+d+"')") 
+                                  print("DATA HAS BEEN INSERTED") 
+                                  mydb.commit() 
+                                else: 
+                                     cursor.execute("insert into ticket                                                                    values('7000','AB500','"+s+"','"+f+"','"+n+"','"+d+"')")                                     print("DATA HAS BEEN INSERTED") 
+                                    mydb.commit()                         if chb==2:                                                                            #choice from show details                             n=input("enter your name")                                      
+                            cursor.execute("select * from ticket where passenger_name='"+n+"'") 
+                            E=cursor.fetchall()                             print(E) 
+ 
+                            
+                            
+                                      
+                    if ch==3:                         break                 else: 
+                    break 
+                
+    if a==3:         print("                                                //////////////thank you///////////////////////////// ")         break 
